@@ -1,0 +1,11 @@
+name: KFilter
+version: '${project.version}'
+main: me.kakaroot.kfilter2.KFilter2
+api-version: 1.19
+authors: [Kakaroot]
+description: Chat Filter Plugin
+
+commands:
+  kfilter:
+    aliases: [kf]
+    description: Base command for the plugin
