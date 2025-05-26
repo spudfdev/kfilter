@@ -2,20 +2,23 @@ package me.kakaroot.kfilter2;
 
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class EventHandler implements Listener {
+public class ChatListener implements Listener {
     private KFilter2 plugin;
     private Map<String, String> bannedWordsMap;
-    public EventHandler(KFilter2 inst) {
+
+    public ChatListener(KFilter2 inst) {
         this.plugin = inst;
         this.bannedWordsMap = new HashMap<>();
         loadBannedWords();
     }
+
     public void loadBannedWords() {
         bannedWordsMap = new HashMap<>();
         FileConfiguration configFile = plugin.getConfig();
@@ -30,7 +33,7 @@ public class EventHandler implements Listener {
         }
     }
 
-    @org.bukkit.event.EventHandler
+    @EventHandler
     public void onPlayerChat(AsyncPlayerChatEvent e) {
         String message = e.getMessage();
 

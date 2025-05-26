@@ -1,6 +1,6 @@
 package me.kakaroot.kfilter2.Commands.SubCommands;
 
-import me.kakaroot.kfilter2.Commands.Structure.SubCommand;
+import me.kakaroot.kfilter2.Commands.CommandStructure.SubCommand;
 import me.kakaroot.kfilter2.KFilter2;
 import me.kakaroot.kfilter2.Utility;
 import org.bukkit.command.Command;
@@ -21,8 +21,8 @@ public class ReloadCommand implements SubCommand {
     public boolean execute(CommandSender sender, Command command, String label, String[] args) {
         if (args.length != 1) {
             if (sender instanceof Player) {
-                sender.sendMessage(Utility.tcc(plugin.PlayerPrefix + "&cIncorrect Format:"));
-                sender.sendMessage(Utility.tcc(plugin.PlayerPrefix + "&7Correct Format: &a/kf reload"));
+                sender.sendMessage(Utility.colourise(plugin.PlayerPrefix + "&cIncorrect Format:"));
+                sender.sendMessage(Utility.colourise(plugin.PlayerPrefix + "&7Correct Format: &a/kf reload"));
             }
             else {
                 sender.sendMessage("Incorrect Format:");
@@ -32,9 +32,9 @@ public class ReloadCommand implements SubCommand {
         }
 
         plugin.reloadConfig();
-        plugin.getEventHandler().loadBannedWords();
+        plugin.getListener().loadBannedWords();
         if (sender instanceof Player) {
-            sender.sendMessage(Utility.tcc(plugin.PlayerPrefix + "&aThe config has been reloaded."));
+            sender.sendMessage(Utility.colourise(plugin.PlayerPrefix + "&aThe config has been reloaded."));
         }
         else {
             sender.sendMessage("The config has been reloaded.");

@@ -4,7 +4,7 @@ import org.bukkit.ChatColor;
 
 public class Utility {
 
-    public static String tcc(String s) {
+    public static String colourise(String s) {
         return ChatColor.translateAlternateColorCodes('&',s);
     }
 

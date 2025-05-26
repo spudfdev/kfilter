@@ -1,4 +1,4 @@
-package me.kakaroot.kfilter2.Commands.Structure;
+package me.kakaroot.kfilter2.Commands.CommandStructure;
 
 import me.kakaroot.kfilter2.KFilter2;
 import me.kakaroot.kfilter2.Utility;
@@ -23,23 +23,14 @@ public class BaseCommand implements CommandExecutor {
         subCommands.put(name.toLowerCase(), subCommand);
     }
 
-    private boolean hasAnyPermission(CommandSender sender, List<String> permissions) {
-        for (String permission : permissions) {
-            if (sender.hasPermission(permission)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length == 0) {
             if (sender instanceof Player) {
-                sender.sendMessage(Utility.tcc("&6&lKFilter"));
-                sender.sendMessage(Utility.tcc("&6Created by: &aSpud"));
-                sender.sendMessage(Utility.tcc("&cDiscord: &fwilson_11"));
-                sender.sendMessage(Utility.tcc("&8Usage: &a/kf help"));
+                sender.sendMessage(Utility.colourise("&6&lKFilter"));
+                sender.sendMessage(Utility.colourise("&6Created by: &aSpud"));
+                sender.sendMessage(Utility.colourise("&cDiscord: &fwilson_11"));
+                sender.sendMessage(Utility.colourise("&8Usage: &a/kf help"));
             } else {
                 sender.sendMessage("KFilter:");
                 sender.sendMessage("Created by: Spud");
@@ -55,19 +46,28 @@ public class BaseCommand implements CommandExecutor {
             SubCommand subCommand = subCommands.get(subCommandName);
             List<String> permissions = subCommand.getPermissions();
             if (permissions != null && !hasAnyPermission(sender, permissions)) {
-                sender.sendMessage(Utility.tcc(plugin.PlayerPrefix + "&cError: &7You do not have permission to execute this command."));
+                sender.sendMessage(Utility.colourise(plugin.PlayerPrefix + "&cError: &7You do not have permission to execute this command."));
                 return true;
             }
             return subCommand.execute(sender, command, label, args);
         } else {
             if (sender instanceof Player) {
-                sender.sendMessage(Utility.tcc(plugin.PlayerPrefix + "&cUnknown subcommand: " + subCommandName));
-                sender.sendMessage(Utility.tcc(plugin.PlayerPrefix + "&cTry &a/kf help"));
+                sender.sendMessage(Utility.colourise(plugin.PlayerPrefix + "&cUnknown subcommand: " + subCommandName));
+                sender.sendMessage(Utility.colourise(plugin.PlayerPrefix + "&cTry &a/kf help"));
             } else {
                 sender.sendMessage("Unknown subcommand: " + subCommandName);
                 sender.sendMessage("Try: kf help");
             }
             return true;
         }
+    }
+
+    private boolean hasAnyPermission(CommandSender sender, List<String> permissions) {
+        for (String permission : permissions) {
+            if (sender.hasPermission(permission)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

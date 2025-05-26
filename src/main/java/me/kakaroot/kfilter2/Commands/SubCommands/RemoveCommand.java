@@ -1,6 +1,6 @@
 package me.kakaroot.kfilter2.Commands.SubCommands;
 
-import me.kakaroot.kfilter2.Commands.Structure.SubCommand;
+import me.kakaroot.kfilter2.Commands.CommandStructure.SubCommand;
 import me.kakaroot.kfilter2.KFilter2;
 import me.kakaroot.kfilter2.Utility;
 import org.bukkit.command.Command;
@@ -23,8 +23,8 @@ public class RemoveCommand implements SubCommand {
     public boolean execute(CommandSender sender, Command command, String label, String[] args) {
         if (args.length != 2) {
             if (sender instanceof Player) {
-                sender.sendMessage(Utility.tcc(plugin.PlayerPrefix + "&cIncorrect Format:"));
-                sender.sendMessage(Utility.tcc(plugin.PlayerPrefix + "&aCorrect Format &7/kf remove <word>"));
+                sender.sendMessage(Utility.colourise(plugin.PlayerPrefix + "&cIncorrect Format:"));
+                sender.sendMessage(Utility.colourise(plugin.PlayerPrefix + "&aCorrect Format &7/kf remove <word>"));
             }
             else {
                 sender.sendMessage("Incorrect Format:");
@@ -36,23 +36,23 @@ public class RemoveCommand implements SubCommand {
             ConfigurationSection bannedWords = config.getConfigurationSection("banned_words");
             if (bannedWords == null) {
                 if (sender instanceof Player) {
-                    sender.sendMessage(Utility.tcc(plugin.PlayerPrefix + "&4Internal Error: &cFile configuration is null."));
+                    sender.sendMessage(Utility.colourise(plugin.PlayerPrefix + "&4Error: &cConfig file is null."));
                 }
                 else {
-                    sender.sendMessage("Internal Error: File Configuration is null.");
+                    sender.sendMessage("Error: Config file is null.");
                 }
                 return false;
             }
 
-            if (config.getKeys(false).size() > 0) {
+            if (!config.getKeys(false).isEmpty()) {
                 String word = args[1];
                 if (bannedWords.contains(word)) {
                     bannedWords.set(word,null);
                     plugin.saveConfig();
                     plugin.reloadConfig();
-                    plugin.getEventHandler().loadBannedWords();
+                    plugin.getListener().loadBannedWords();
                     if (sender instanceof Player) {
-                        sender.sendMessage(String.format(Utility.tcc(plugin.PlayerPrefix + "&a%s has been unbanned."),word));
+                        sender.sendMessage(String.format(Utility.colourise(plugin.PlayerPrefix + "&a%s has been unbanned."),word));
                     }
                     else {
                         sender.sendMessage(String.format("%s has been unbanned.",word));
@@ -61,7 +61,7 @@ public class RemoveCommand implements SubCommand {
                 }
                 else {
                     if (sender instanceof Player) {
-                        sender.sendMessage(Utility.tcc("&cError: That word isn't banned!"));
+                        sender.sendMessage(Utility.colourise("&cError: That word isn't banned!"));
                     }
                     else {
                         sender.sendMessage("Error: That word isn't banned!");

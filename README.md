@@ -16,8 +16,6 @@ A customizable Minecraft plugin designed to filter and manage chat messages on y
 - **Easy Configuration**: Simple configuration via `config.yml`.
 
 ---
-
-
 ## Commands
 
 | Command                  | Description                                   | Permission     |
@@ -31,7 +29,8 @@ A customizable Minecraft plugin designed to filter and manage chat messages on y
 
 ## Configuration
 
-The `config.yml` file allows you to customize the list directly. Here’s an example configuration:
+The `config.yml` file allows you to customize the list directly. 
+Here’s an example configuration:
 
 ```yaml
 # List of blocked words

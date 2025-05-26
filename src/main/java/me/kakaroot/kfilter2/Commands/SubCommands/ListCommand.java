@@ -1,6 +1,6 @@
 package me.kakaroot.kfilter2.Commands.SubCommands;
 
-import me.kakaroot.kfilter2.Commands.Structure.SubCommand;
+import me.kakaroot.kfilter2.Commands.CommandStructure.SubCommand;
 import me.kakaroot.kfilter2.KFilter2;
 import me.kakaroot.kfilter2.Utility;
 import org.bukkit.command.Command;
@@ -26,8 +26,8 @@ public class ListCommand implements SubCommand {
 
         if (args.length != 1) {
             if (sender instanceof Player) {
-                sender.sendMessage(Utility.tcc(plugin.PlayerPrefix + "&cIncorrect Format:"));
-                sender.sendMessage(Utility.tcc(plugin.PlayerPrefix + "&aCorrect Format: &7/kf list"));
+                sender.sendMessage(Utility.colourise(plugin.PlayerPrefix + "&cIncorrect Format:"));
+                sender.sendMessage(Utility.colourise(plugin.PlayerPrefix + "&aCorrect Format: &7/kf list"));
             } else {
                 sender.sendMessage("Incorrect Format:");
                 sender.sendMessage("Correct Format: kf list");
@@ -39,24 +39,24 @@ public class ListCommand implements SubCommand {
         ConfigurationSection bannedWords = config.getConfigurationSection("banned_words");
         if (bannedWords == null) {
             if (sender instanceof Player) {
-                sender.sendMessage(Utility.tcc(plugin.PlayerPrefix + "&4Internal Error: &cFile configuration is null."));
+                sender.sendMessage(Utility.colourise(plugin.PlayerPrefix + "&4Error: &cConfig file is null."));
             } else {
-                sender.sendMessage("Internal Error: File Configuration is null.");
+                sender.sendMessage("Error: Config file is null.");
             }
             return false;
         }
 
         if (sender instanceof Player) {
-            sender.sendMessage(Utility.tcc("\n&a&nBanned Words\n"));
+            sender.sendMessage(Utility.colourise("\n&a&nBanned Words\n"));
         } else {
             sender.sendMessage("Banned Words:");
         }
 
-        if (config.getKeys(false).size() > 0) {
+        if (!config.getKeys(false).isEmpty()) {
             for (String banned : bannedWords.getKeys(false)) {
                 String replacement = bannedWords.getString(banned);
                 if (sender instanceof Player) {
-                    sender.sendMessage(String.format(Utility.tcc("&c%s &f: &a%s"), banned, replacement));
+                    sender.sendMessage(String.format(Utility.colourise("&c%s &f: &a%s"), banned, replacement));
                 } else {
                     sender.sendMessage(String.format("%s : %s", banned, replacement));
                 }
@@ -64,7 +64,7 @@ public class ListCommand implements SubCommand {
             return true;
         } else {
             if (sender instanceof Player) {
-                sender.sendMessage(Utility.tcc("&c- &7NONE"));
+                sender.sendMessage(Utility.colourise("&c- &7NONE"));
             } else {
                 sender.sendMessage("- NONE");
             }

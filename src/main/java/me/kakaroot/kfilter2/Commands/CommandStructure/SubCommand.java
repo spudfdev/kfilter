@@ -1,4 +1,4 @@
-package me.kakaroot.kfilter2.Commands.Structure;
+package me.kakaroot.kfilter2.Commands.CommandStructure;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
